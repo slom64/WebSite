@@ -266,7 +266,7 @@ export const og: SocialImageOptions["Component"] = (
         alignItems: "flex-start",
         height: "100%",
         width: "100%",
-        backgroundImage: `url("https://${cfg.baseUrl}/static/og-image.jpeg")`,
+        backgroundImage: `url("https://{{cfg.baseUrl}}/static/og-image.jpeg")`,
         backgroundSize: "100% 100%",
       }}
     >
