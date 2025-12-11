@@ -1,0 +1,1 @@
+When you want to transfer binaries, use `binary` flag. So files don't get corrubted while transfering. 

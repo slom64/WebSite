@@ -1,3 +1,160 @@
 @use "./base.scss";
+@use "./themes";
 
 // put your custom CSS here!
+
+/* Change H1 color */
+article h1 {
+  color: blue !important;
+}
+
+/* Change H2 color */
+article h2 {
+  color: yellow !important;
+}
+
+/* Change H3 color */
+article h3 {
+  color: royalblue !important;
+}
+
+/* Change H4 color */
+article h4 {
+  color: springgreen !important;
+}
+
+body {
+  margin-top: 0 !important;  // No top margin on body
+  background-color: transparent !important;  // Allow background GIF to show
+}
+
+.page-header {
+  margin-top: 0 !important;  // No margin
+}
+
+.page {
+  padding-top: 0.5rem;  // Small padding for slight shift up (adjust as needed)
+}
+
+/* Target the sidebars and center to reduce top padding */
+.left.sidebar,
+.right.sidebar{
+  padding-top: 0.5rem !important;  // Small value to shift up; set to 0 for minimal
+  margin-top: 0 !important;
+}
+
+.center {
+  padding-top: 0rem !important;  // Small value to shift up; set to 0 for minimal
+  margin-top: 0 !important;
+}
+
+.sidebar {
+  padding-top: 0.5rem !important;  // Additional for any shared sidebar styles
+  margin-top: 0 !important;
+}
+
+/* Optional: If there's still space above the logo or title */
+.page-title {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+.page-title img {
+  max-width: 100px;  // Desktop max size (adjust this value to make it smaller)
+  height: auto;  // Maintain aspect ratio
+  display: block;  // Ensures it behaves well in the sidebar
+}
+
+/* Media query for mobile - make logo even smaller */
+@media (max-width: 768px) {
+  .page-title img {
+    max-width: 80px;  // Smaller on mobile (adjust as needed)
+  }
+}
+
+/* Additional common targets for top space */
+header {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.before-body {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.content-meta {
+  margin-top: 0 !important;
+}
+
+/* Background GIF with transparency */
+body::before {
+  content: "";
+  position: fixed;  // Stays in place on scroll
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("/Z-Assets/background.gif") no-repeat center center;  // Path to your GIF
+  background-size: cover;  // Covers the entire screen
+  opacity: 1;  // 50% transparent - adjust (0.1 to 1.0) for more/less visibility
+  z-index: -1;  // Behind all content
+}
+
+/* Media query for mobile - optional: reduce opacity or adjust size if needed */
+@media (max-width: 768px) {
+  body::before {
+    opacity: 0.3;  // Less visible on small screens for better readability
+  }
+}
+
+/* Semi-transparent backgrounds for foreground elements in light mode */
+@media (prefers-color-scheme: light) {
+  body .page > #quartz-body {
+    background-color: rgba(213, 214, 219, 0.4) !important;  // Semi-transparent #d5d6db - adjust alpha (0.4)
+  }
+
+  body .page > #quartz-body .left.sidebar,
+  body .page > #quartz-body .right.sidebar {
+    background-color: rgba(203, 204, 209, 0.4) !important;  // Semi-transparent #cbccd1 - adjust alpha
+    border-color: rgba(220, 222, 226, 0.4) !important;  // Semi-transparent #dcdee2 border - or set to transparent
+  }
+
+  /* Additional targets if needed */
+  .left.sidebar,
+  .right.sidebar,
+  .center,
+  .page,
+  .desktop,
+  .content,
+  .popover-hint,
+  article,
+  header {
+    background-color: rgba(213, 214, 219, 0.4) !important;  // Fallback matching body
+  }
+}
+
+/* Semi-transparent backgrounds for foreground elements in dark mode */
+@media (prefers-color-scheme: dark) {
+  body .page > #quartz-body {
+    background-color: rgba(26, 27, 38, 0.4) !important;  // Semi-transparent #1a1b26 - adjust alpha (0.4)
+  }
+
+  body .page > #quartz-body .left.sidebar,
+  body .page > #quartz-body .right.sidebar {
+    background-color: rgba(22, 22, 30, 0.4) !important;  // Semi-transparent #16161e - adjust alpha
+    border-color: rgba(41, 46, 66, 0.4) !important;  // Semi-transparent #292e42 border - or set to transparent
+  }
+
+  /* Additional targets if needed */
+  .left.sidebar,
+  .right.sidebar,
+  .center,
+  .page,
+  .desktop,
+  .content,
+  .popover-hint,
+  article,
+  header {
+    background-color: rgba(26, 27, 38, 0.4) !important;  // Fallback matching body
+  }
+}

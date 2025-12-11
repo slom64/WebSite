@@ -1,0 +1,3 @@
+- `/etc/apparmor.d/` was making restricted shell, where i can't run everything and can't write anywhere in my home. you can know that by seeing your shell `env` `SHELL=/usr/sbin/ash`, which is custom shell.
+- Check version of Things. OS, libraries ... 
+- When you giveup brute force the credentials for users.

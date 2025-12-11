@@ -1,0 +1,3 @@
+- check `env` variables like `SHELL=/usr/sbin/ash`.
+- Check readable and writable things.
+- 

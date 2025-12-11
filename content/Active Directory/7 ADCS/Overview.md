@@ -1,0 +1,9 @@
+- ESC1: attacker can supply the `SubjectAltName`. `msPKI-Certificate-Name-Flag: ENROLLEE_SUPPLIES_SUBJECT` 
+- ESC2: We have access to `AnyPurpos` certificate. which mean it has implicit `Enrollment agent OID`.
+- ESC3: We have access to certificate that has `Enrollment agent` OID.
+- ESC9: certificate that has `msPKI-Enrollment-Flag: CT_FLAG_NO_SECURITY_EXTENSION` which disable `szOID_NTDS_CA_SECURITY_EXT` make us fall back before certifried and request fake UPN.
+- ESC10: if we have the registry keys `StrongCertificateBindingEnforcement = 0` or `CertificateMappingMethods = 0x4`, then we fall back before certifried, trusting UPN.
+- ESC6: The CA can be vulnerable if a specific flag `EDITF_ATTRIBUTESUBJECTALTNAME2` is set. Which make all templates vulnerable to `ESC1`.
+- ESC4: If we have `FullControl`,`WriteDacl`, `WriteOwner` or specific `WriteProperty` rights over a template. Then we can modify the template to be vulnerable.
+- ESC7: We have manageCA rights, which make us enable `ESC6 + ESC16` attack or enable `SubCA` certificate which is by default is vulnerable to ESC1.
+- ESC5:

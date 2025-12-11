@@ -1,0 +1,3 @@
+- If you can see high user privileges when you do `whoami /priv` but its disabled, you can easily enable it using `.\EnableAllTokenPrivs.ps1`. The real problem is UAC which doesn't show the high privileges from the first place.
+- Give full control to other users on file `icacls "C:\takeown\flag.txt" /grant users:f`.
+- There is permissions that accesschk.exe can see on Files, Registry, Service 

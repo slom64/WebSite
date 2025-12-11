@@ -1,0 +1,2 @@
+- [ ] SPN-less 
+- [ ] Delegation inheritance.

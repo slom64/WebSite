@@ -1,0 +1,4 @@
+- `DPAPI`
+	- DPAPI Master Keys: `C:\Users\adam.silver\AppData\Roaming\Microsoft\Protect\S-1-5-21-1487982659-1829050783-2281216199-1105\1038bdea-4935-41a8-a224-9b3720193c86`
+	- DPAPI Credential Files: `C:\Users\adam.silver\AppData\Local\Microsoft\Credentials\DFBE70A7E5CC19A398EBF1B96859CE5D`
+- `C:\$RECYCLE.BIN\`

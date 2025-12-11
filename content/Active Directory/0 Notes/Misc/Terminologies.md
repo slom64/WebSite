@@ -1,0 +1,14 @@
+- **SAM (sAMAccountName)**
+    - Legacy NT4-style username.
+    - Example: `ALICE`, `BOB`, or `PC01$` (for a machine).
+    - Often used in the form `DOMAIN\ALICE`.
+    - Unique only inside a domain.
+- **SID (Security Identifier)**
+    - Unique ID assigned to every object in AD.
+    - Looks like: `S-1-5-21-3623811015-3361044348-30300820-1013`.
+    - Never reused.
+    - Even if you rename Alice → Bob, her SID stays the same.
+- **UPN (UserPrincipalName)**
+    - Modern “logon name” that looks like an email.
+    - Example: `alice@corp.local`.
+    - Must be unique in the forest.

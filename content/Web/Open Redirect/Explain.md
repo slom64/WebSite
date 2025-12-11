@@ -1,0 +1,2 @@
+Open Redirect it is similer to SSRF, but the difference is: in SSRF you may do more actions using the submitted IP.
+But in open redirect it only make the server get redirected to submitted url thats it.
