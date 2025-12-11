@@ -24,7 +24,7 @@ Imagine a company called `example.com` with 2 departments: **IT** and **HR**.
     - `OU=HR,DC=example,DC=com`
 Inside:
 - `OU=IT` has user accounts: `Alice`, `Bob`, and computers used by IT staff.
-- `OU=HR` has user accounts: `Eve`, `Mallory`, and HR’s computers.
+- `OU=HR` has user accounts: `Eve`, `Mallory`, and HR’s computers .
 
 ---
 
