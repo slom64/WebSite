@@ -5,4 +5,5 @@
 ---
 ## Web
 - [ ] Manual Insecure Deserialization
+- [ ] Usage of CSS in XSS, dangling markup. Do research.
 

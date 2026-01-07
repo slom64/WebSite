@@ -1,19 +1,33 @@
-| Category | Command | Description |
-|----------|---------|-------------|
-| Modes | `i` | Enter Insert mode (insert before cursor) |
-| | `I` | Enter Insert mode at beginning of line |
-| | `a` | Enter Insert mode (append after cursor) |
-| | `A` | Enter Insert mode at end of line |
-| | `o` | Enter Insert mode on new line below |
-| | `O` | Enter Insert mode on new line above |
-| | `v` | Enter Visual mode (character-wise) |
-| | `V` | Enter Visual mode (line-wise) |
-| | `<Ctrl-v>` | Enter Visual mode (block-wise) |
-| | `R` | Enter Replace mode |
-| | `<Esc>` or `<Ctrl-[>` | Exit to Normal mode |
-| | `:` | Enter Command-line (Ex) mode |
-| | `/` | Enter search forward |
-| | `?` | Enter search backward |
+
+
+| Command                   | Description                                                                                                                                                                                                                                                                                                                                                             |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| :1,$s/^/Your String Here/ | append specific string at the start of each line. `1,$`:Specifies the range of lines to operate on. <br>`s`:The command to search for a pattern and replace it with a specified string.<br>`/^/`:The caret (`^`) is a **regular expression anchor** that matches the **beginning** of a line.<br>`/Your String Here/`:This is the actual string you want to insert.<br> |
+|                           |                                                                                                                                                                                                                                                                                                                                                                         |
+
+
+
+
+
+
+---
+
+| Category | Command               | Description                              |
+| -------- | --------------------- | ---------------------------------------- |
+| Modes    | `i`                   | Enter Insert mode (insert before cursor) |
+|          | `I`                   | Enter Insert mode at beginning of line   |
+|          | `a`                   | Enter Insert mode (append after cursor)  |
+|          | `A`                   | Enter Insert mode at end of line         |
+|          | `o`                   | Enter Insert mode on new line below      |
+|          | `O`                   | Enter Insert mode on new line above      |
+|          | `v`                   | Enter Visual mode (character-wise)       |
+|          | `V`                   | Enter Visual mode (line-wise)            |
+|          | `<Ctrl-v>`            | Enter Visual mode (block-wise)           |
+|          | `R`                   | Enter Replace mode                       |
+|          | `<Esc>` or `<Ctrl-[>` | Exit to Normal mode                      |
+|          | `:`                   | Enter Command-line (Ex) mode             |
+|          | `/`                   | Enter search forward                     |
+|          | `?`                   | Enter search backward                    |
 
 | Navigation | Command | Description |
 |------------|---------|-------------|

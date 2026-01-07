@@ -2,6 +2,8 @@
 
 > [!summary]
 > Microsoft in modern systems use 2 things to validate the certificate, it use UPN + SID. The CA will appned SID to UPN of the attacker account. So even if the attacker can control UPN to put it as UPN of administrator, he can't control the process of appending the SID. So thats why ESC6 alone isn't enough. We need `ESC9/ESC16`  that disable SID extension.
+> 
+> `ESC6` doesn't create new attack, it just makes it easier to bypass CA limitions to exploit `ESC9/ESC16`
 
 There is configuration in CA `EDITF_ATTRIBUTESUBJECTALTNAME2` which make the CA trust the `SAN` "SubjectAltName" which make all templates  vulnerable to `ESC1`. Because we supply the `SAN`.
 
@@ -17,6 +19,8 @@ However, ESC6 becomes a potent component of an attack chain when combined with:
 - **ESC16 (Security Extension Disabled on CA):** The CA itself is configured _not_ to include the SID security extension in _any_ issued certificates.
 
 In these combined scenarios (ESC6 + ESC9, or ESC6 + ESC16), the SID security extension is absent from the issued certificate. This forces the KDC (even in "Full Enforcement" mode for strong certificate binding, which is `StrongCertificateBindingEnforcement=2`) to fall back to other mapping methods. One such fallback allows the KDC to use a SID provided in the SAN if it's formatted as a specific URL: `URL=tag:microsoft.com,2022-09-14:sid:<VALUE>`. ESC6 provides the means for the attacker to inject this maliciously crafted SAN SID, thereby enabling impersonation even on fully patched DCs.
+
+
 
 ---
 ## Enumeration

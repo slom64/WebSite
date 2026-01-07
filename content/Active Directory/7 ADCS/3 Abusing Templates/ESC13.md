@@ -1,0 +1,1 @@
+There is a certificate that has **Issuance Policy** which refrence to **OID Group Link** that contain which group the requester will be part of when they get the certificate.

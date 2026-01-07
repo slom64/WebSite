@@ -1,4 +1,14 @@
+| **Target Service**   | **Protocol** | **Primary Relay Defense** | **Mechanism Name**                     |
+| -------------------- | ------------ | ------------------------- | -------------------------------------- |
+| **File Shares**      | SMB          | **Signature**             | SMB Signing                            |
+| **Web / IIS / ADCS** | HTTP/S       | **Channel Binding**       | Extended Protection (EPA)              |
+| **SQL Database**     | TDS (MSSQL)  | **Channel Binding**       | Extended Protection / Force Encryption |
+| **Exchange**         | SMTP         | **Channel Binding**       | Extended Protection (EPA)              |
+| **Active Directory** | LDAP (389)   | **Signature**             | LDAP Signing                           |
+| **Active Directory** | LDAPS (636)  | **Channel Binding**       | LDAP Channel Binding                   |
+| **WMI / DCOM**       | RPC          | **Signature**             | RPC Packet Integrity (Auth Level 5/6)  |
 
+---
 > [!Question] 
 > what makes smb when signing is enabled not vulnerable to relay. what is the new thing that is added
 
@@ -90,3 +100,39 @@ The key distinction is between **using the _hash_ to prove identity** and **usin
 - **NTLM Relay (Signed):** Fails because, even if the attacker successfully relays the initial proof, the target server immediately demands that subsequent commands be secured with a **Session Key** that only the true owner of the $\text{PWH}$ can generate.
 
 The attacker must successfully **crack the captured NTLMv2 hash** to obtain the $\text{PWH}$ _before_ they can generate the Session Key and bypass signing. If they can crack the hash, the attack moves from "Relay" to **"Pass-The-Hash/Key"** because they now possess the foundational secret.
+
+---
+
+> [!question] 
+> when we are talking about ntlm relay, the  most important thing is the target service signing status not the incoming service signing status, so we can relay most ntlm authentication even if there is signing but the real problem is in the target service if it require signing or not, if it requires it then we can't do anything.
+
+
+The golden rule of NTLM Relay is: **The vulnerability lies in the configuration of the TARGET, not the Victim.**
+Here is the breakdown of why your statement is correct and the technical nuance behind it.
+### 1. The Incoming Side (Victim $\rightarrow$ Attacker)
+
+**Why Signing Doesn't Matter Here:**
+When the victim connects to you (the attacker), they might be configured to "Require Signing."
+- **The Relay Process:** You are simply forwarding their Type 1 message to the target, getting the Type 2 from the target, and handing it to the victim.
+- **The Completion:** The victim generates the Type 3 (Proof) and sends it to you.
+- **The Ignored Requirement:** Even if the victim _expects_ you to sign your response to them, **you don't care.** You have already received what you wanted: the valid Type 3 authentication message. You can simply drop the connection with the victim after you steal the credential blob. You don't need to maintain a signed session with the _victim_; you only need to establish one with the _target_.
+### 2. The Target Side (Attacker $\rightarrow$ Target)
+**Why Signing is the Dealbreaker:**
+This is where the attack lives or dies. You are trying to execute a command (like `psexec` or dumping hashes) on the Target.
+- **Scenario A: Target = Signing NOT Required (Vulnerable)**
+    1. You forward the stolen Type 3 message to the target.
+    2. Target accepts it. Authenticated!
+    3. You send a malicious command (e.g., `remote execution`).
+    4. **Success:** Since the target does **not** check for a signature, it executes the command based solely on the previous authentication.
+- **Scenario B: Target = Signing Required (Secure)**
+    1. You forward the stolen Type 3 message to the target.
+    2. Target accepts it. Authenticated!
+    3. **The Check:** The target now expects every packet to have a valid `MAC` signature.
+    4. **The Failure:** As we discussed, you (the attacker) **do not have the Session Key** because you never cracked the password. You cannot calculate the correct `MAC`.
+    5. You send your command (unsigned or invalidly signed).
+    6. **Blocked:** The target drops the packet and kills the connection.
+### ⚡ Summary
+- **Client (Victim):** Can have "Signing Required." It doesn't stop us from stealing the Type 3 message.    
+- **Server (Target):** If it has "Signing Required" (like a Domain Controller), the relay is **impossible**. If it has "Signing Disabled/Not Required," the relay **succeeds**.
+
+This is why, in a penetration test, we scan the network specifically for machines where **"Message Signing is disabled"** (usually workstations) to use them as targets, while avoiding Domain Controllers (which require it by default).

@@ -86,26 +86,43 @@ header {
   margin-top: 0 !important;
 }
 
-/* Background GIF with transparency */
+
 body::before {
   content: "";
-  position: fixed;  // Stays in place on scroll
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: url("/Z-Assets/background.gif") no-repeat center center;  // Path to your GIF
-  background-size: cover;  // Covers the entire screen
-  opacity: 1;  // 50% transparent - adjust (0.1 to 1.0) for more/less visibility
-  z-index: -1;  // Behind all content
+  background: url("/Z-Assets/background.gif") no-repeat center center;
+  background-size: cover;
+  opacity: 1;
+  z-index: -1;
+  pointer-events: none;  // Prevents interference with clicks
 }
 
-/* Media query for mobile - optional: reduce opacity or adjust size if needed */
+// GitHub Pages fallback - tries path without leading slash
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("Z-Assets/background.gif") no-repeat center center;
+  background-size: cover;
+  opacity: 1;
+  z-index: -2;  // Behind the ::before
+  pointer-events: none;
+}
+
 @media (max-width: 768px) {
-  body::before {
+  body::before,
+  body::after {
     opacity: 0.3;  // Less visible on small screens for better readability
   }
 }
+
 
 /* Semi-transparent backgrounds for foreground elements in light mode */
 @media (prefers-color-scheme: light) {
