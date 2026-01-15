@@ -465,17 +465,12 @@ if [[ "$existing_code" -eq "$code" ]]; then
 ```
 
 - `"$code"` comes from:
-    
-    ```bash
-    code=$(echo "$line" | grep -oP 'Status: \K.*')
-    ```
-    
+```bash
+code=$(echo "$line" | grep -oP 'Status: \K.*')
+```
 - So **whatever is after `Status:` in the log file gets stored in `$code`.**
-    
 - Then `[[ ... -eq ... ]]` forces a **numeric comparison** between `$existing_code` and `$code`.
-    
-- If `$code` isn’t a number (e.g. contains `$(...)`), bash will still try to interpret it. That’s the injection point.
-    
+- If `$code` isn’t a number (e.g. contains `a[$(...)]`), bash will still try to interpret it. That’s the injection point.
 
 ---
 
@@ -498,11 +493,8 @@ Status: a[$(payload)]
 They’re leveraging **bash array syntax**:
 
 - `a[...]` is valid to bash (like referencing an array index).
-    
 - Inside the brackets `[...]`, bash will **evaluate command substitution `$(...)` first** before trying to resolve the index.
-    
 - That makes the payload execute **before** the script even compares integers.
-    
 
 So the trick is:  
 ✅ `a[...]` keeps the string syntactically valid for the `-eq` comparison  

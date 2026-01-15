@@ -36,3 +36,15 @@ directives {name
 description
 args {...InputValue}
 ```
+
+```
+SELECT * FROM OPENQUERY([WEB\CLIENTS], 'SELECT * FROM clients.information_schema.tables');
+```
+
+```
+SELECT * FROM OPENQUERY([WEB\CLIENTS], 'SELECT name, value_in_use FROM sys.configurations WHERE name = ''xp_cmdshell''');
+```
+
+```
+
+```

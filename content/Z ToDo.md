@@ -4,6 +4,6 @@
 
 ---
 ## Web
-- [ ] Manual Insecure Deserialization
+- [x] Manual Insecure Deserialization
 - [ ] Usage of CSS in XSS, dangling markup. Do research.
-
+- [ ] Automate HTTP request smuggling.

